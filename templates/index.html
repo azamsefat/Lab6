@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Clinic Appointment System</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <div class="sidebar-backdrop" id="sidebar-backdrop" aria-hidden="true"></div>
+
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true">
+        <svg class="icon-stroke" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+      </div>
+      <div>
+        <strong>Medicare</strong>
+        <span>Clinic Operations OS</span>
+      </div>
+    </div>
+
+    <div class="nav-group-label">Clinical Modules</div>
+    <nav aria-label="Modules">
+      <button class="nav-button active" data-module="dashboard">
+        <svg class="icon-stroke" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>
+        <span class="nav-label">Dashboard</span>
+      </button>
+      <button class="nav-button" data-module="patients">
+        <svg class="icon-stroke" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        <span class="nav-label">Patients</span>
+        <span class="nav-count" id="nav-count-patients">0</span>
+      </button>
+      <button class="nav-button" data-module="doctors">
+        <svg class="icon-stroke" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3"/><path d="M8 15v1a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6v-4"/><circle cx="20" cy="10" r="2"/></svg>
+        <span class="nav-label">Doctors</span>
+        <span class="nav-count" id="nav-count-doctors">0</span>
+      </button>
+      <button class="nav-button" data-module="appointments">
+        <svg class="icon-stroke" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18M9 16l2 2 4-4"/></svg>
+        <span class="nav-label">Appointments</span>
+        <span class="nav-count" id="nav-count-appointments">0</span>
+      </button>
+      <button class="nav-button" data-module="visits">
+        <svg class="icon-stroke" viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M9 14h6M12 11v6"/></svg>
+        <span class="nav-label">Clinical Visits</span>
+        <span class="nav-count" id="nav-count-visits">0</span>
+      </button>
+      <button class="nav-button" data-module="prescriptions">
+        <svg class="icon-stroke" viewBox="0 0 24 24" aria-hidden="true"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/></svg>
+        <span class="nav-label">Prescriptions</span>
+        <span class="nav-count" id="nav-count-prescriptions">0</span>
+      </button>
+      <button class="nav-button" data-module="bills">
+        <svg class="icon-stroke" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8M12 17.5v-11"/></svg>
+        <span class="nav-label">Billing</span>
+        <span class="nav-count" id="nav-count-bills">0</span>
+      </button>
+    </nav>
+
+    <div class="sidebar-links">
+      <a class="sidebar-doc-link" href="/docs" target="_blank" rel="noopener">
+        <svg class="icon-stroke" viewBox="0 0 24 24" aria-hidden="true"><path d="m18 16 4-4-4-4M6 8l-4 4 4 4M14.5 4l-5 16"/></svg>
+        <span>Swagger API Docs</span>
+      </a>
+    </div>
+
+    <div class="sidebar-footer">
+      <div class="avatar" id="user-avatar">A</div>
+      <div class="user-details">
+        <strong id="user-name">Administrator</strong>
+        <span id="user-role">Clinic staff</span>
+      </div>
+      <button class="logout-button" id="logout-button" type="button" title="Sign out" aria-label="Sign out">
+        <svg class="icon-stroke" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg>
+      </button>
+    </div>
+  </aside>
+
+  <main class="workspace">
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="mobile-menu-btn" id="mobile-menu-btn" type="button" aria-label="Open navigation">
+          <svg class="icon-stroke" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+        <div>
+          <p id="breadcrumb">Overview</p>
+          <h1 id="page-title">Dashboard</h1>
+        </div>
+      </div>
+
+      <div class="topbar-actions">
+        <span class="date-pill" id="current-date">
+          <svg class="icon-stroke" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+          <span id="current-date-text"></span>
+        </span>
+        <button class="btn-primary-sm" id="quick-book-btn" type="button">
+          <svg class="icon-stroke" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+          <span>New appointment</span>
+        </button>
+
+        <div class="notif-wrap">
+          <button class="icon-button" id="notif-button" type="button" aria-label="Notifications" aria-expanded="false">
+            <svg class="icon-stroke" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+            <span class="notif-badge hidden" id="notif-badge">0</span>
+          </button>
+          <div class="notif-popover hidden" id="notif-popover" role="region" aria-label="Recent notifications">
+            <div class="notif-header">
+              <strong>Clinic Notifications</strong>
+              <button type="button" class="text-button" id="clear-notifs-btn">Clear all</button>
+            </div>
+            <div class="notif-list" id="notif-list">
+              <p class="empty-state-sm">No recent activity yet.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="content">
+      <!-- DASHBOARD -->
+      <section id="dashboard" class="module active">
+        <div class="welcome-panel">
+          <div class="welcome-copy">
+            <p class="welcome-kicker" id="welcome-day">Clinic Overview</p>
+            <h2 id="welcome-heading">Welcome back</h2>
+            <span>Monitor live appointments, clinical consultations, e-prescriptions, and billing operations across your clinic.</span>
+            <div class="welcome-actions">
+              <button type="button" class="hero-btn primary" data-open="appointments">
+                <svg class="icon-stroke" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18M12 14v4M10 16h4"/></svg>
+                <span>Schedule appointment</span>
+              </button>
+              <button type="button" class="hero-btn ghost" data-open="patients">
+                <svg class="icon-stroke" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6M22 11h-6"/></svg>
+                <span>Register patient</span>
+              </button>
+            </div>
+          </div>
+          <div class="welcome-graphic" aria-hidden="true">
+            <div class="pulse-ring ring-outer"></div>
+            <div class="pulse-ring ring-inner"></div>
+            <div class="welcome-icon">
+              <svg class="icon-stroke" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+            </div>
+          </div>
+        </div>
+
+        <div id="dashboard-cards" class="cards"></div>
+
+        <div class="dashboard-grid">
+          <section class="panel">
+            <div class="panel-heading">
+              <div class="panel-title-wrap">
+                <span class="panel-ico">
+                  <svg class="icon-stroke" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                </span>
+                <div><p>Schedule</p><h3>Upcoming appointments</h3></div>
+              </div>
+              <button type="button" class="text-button" data-open="appointments">View all →</button>
+            </div>
+            <div id="dashboard-appointments" class="compact-list"></div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-heading">
+              <div class="panel-title-wrap">
+                <span class="panel-ico">
+                  <svg class="icon-stroke" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+                </span>
+                <div><p>Financial &amp; Operations</p><h3>Clinic pulse</h3></div>
+              </div>
+              <button type="button" class="text-button" data-open="bills">Open billing →</button>
+            </div>
+            <div id="dashboard-pulse" class="pulse-body"></div>
+          </section>
+        </div>
+      </section>
+
+      <!-- PATIENTS -->
+      <section id="patients" class="module">
+        <div class="module-toolbar">
+          <div>
+            <p class="eyebrow">Module 1</p>
+            <h2>Patient Directory</h2>
+          </div>
+          <div class="toolbar-controls">
+            <div class="search-box">
+              <svg class="icon-stroke" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+              <input type="search" id="patient-search" placeholder="Search patients by name, phone, email...">
+            </div>
+          </div>
+        </div>
+
+        <form id="patient-form" class="form-card">
+          <div class="form-card-header">
+            <div class="form-title-group">
+              <span class="form-ico"><svg class="icon-stroke" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6M22 11h-6"/></svg></span>
+              <div><h3>Register new patient</h3><span>Add patient contact details to enable appointment booking.</span></div>
+            </div>
+          </div>
+          <div class="form-fields cols-4">
+            <label class="field"><span>Full name</span><input name="name" placeholder="e.g. Amina Rahman" required></label>
+            <label class="field"><span>Phone number</span><input name="phone" placeholder="e.g. 01700-000001" required></label>
+            <label class="field"><span>Email address</span><input name="email" type="email" placeholder="patient@example.com" required></label>
+            <div class="field-submit"><button type="submit" class="btn-primary">Add patient</button></div>
+          </div>
+        </form>
+
+        <div id="patient-list" class="data-list"></div>
+      </section>
+
+      <!-- DOCTORS -->
+      <section id="doctors" class="module">
+        <div class="module-toolbar">
+          <div>
+            <p class="eyebrow">Module 2</p>
+            <h2>Doctor Roster</h2>
+          </div>
+          <div class="toolbar-controls">
+            <div class="search-box">
+              <svg class="icon-stroke" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+              <input type="search" id="doctor-search" placeholder="Search doctors or specialties...">
+            </div>
+          </div>
+        </div>
+
+        <form id="doctor-form" class="form-card">
+          <div class="form-card-header">
+            <div class="form-title-group">
+              <span class="form-ico"><svg class="icon-stroke" viewBox="0 0 24 24"><path d="M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3"/><path d="M8 15v1a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6v-4"/><circle cx="20" cy="10" r="2"/></svg></span>
+              <div><h3>Add doctor to roster</h3><span>Define clinical specialty and consultation hours.</span></div>
+            </div>
+          </div>
+          <div class="form-fields cols-4">
+            <label class="field"><span>Doctor name</span><input name="name" placeholder="e.g. Dr. Shahriar Karim" required></label>
+            <label class="field"><span>Specialty</span><input name="specialty" placeholder="e.g. Cardiology" required></label>
+            <label class="field"><span>Schedule</span><input name="schedule" placeholder="Mon-Fri, 9:00 AM-5:00 PM"></label>
+            <div class="field-submit"><button type="submit" class="btn-primary">Add doctor</button></div>
+          </div>
+        </form>
+
+        <div id="doctor-list" class="card-grid-list"></div>
+      </section>
+
+      <!-- APPOINTMENTS -->
+      <section id="appointments" class="module">
+        <div class="module-toolbar">
+          <div>
+            <p class="eyebrow">Module 3</p>
+            <h2>Appointments</h2>
+          </div>
+          <div class="toolbar-controls">
+            <div class="filter-pills" id="appointment-filters" role="tablist">
+              <button type="button" class="filter-pill active" data-filter="all">All</button>
+              <button type="button" class="filter-pill" data-filter="scheduled">Scheduled</button>
+              <button type="button" class="filter-pill" data-filter="cancelled">Cancelled</button>
+            </div>
+            <div class="search-box">
+              <svg class="icon-stroke" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+              <input type="search" id="appointment-search" placeholder="Search patient, doctor, reason...">
+            </div>
+          </div>
+        </div>
+
+        <form id="appointment-form" class="form-card">
+          <div class="form-card-header">
+            <div class="form-title-group">
+              <span class="form-ico"><svg class="icon-stroke" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18M9 16l2 2 4-4"/></svg></span>
+              <div><h3>Schedule appointment</h3><span>Double-booking for the same doctor, date, and time is automatically prevented.</span></div>
+            </div>
+          </div>
+          <div class="form-fields cols-5">
+            <label class="field"><span>Patient</span><select name="patient_id" id="patient-select" required><option value="">Select patient</option></select></label>
+            <label class="field"><span>Doctor</span><select name="doctor_id" id="doctor-select" required><option value="">Select doctor</option></select></label>
+            <label class="field"><span>Date</span><input name="appointment_date" id="appointment-date-input" type="date" required></label>
+            <label class="field"><span>Time</span><input name="appointment_time" id="appointment-time-input" type="time" required></label>
+            <label class="field"><span>Reason</span><input name="reason" placeholder="e.g. Routine checkup"></label>
+            <div class="field-submit"><button type="submit" class="btn-primary">Schedule</button></div>
+          </div>
+        </form>
+
+        <div id="appointment-list" class="data-list"></div>
+      </section>
+
+      <!-- CLINICAL VISITS -->
+      <section id="visits" class="module">
+        <div class="module-toolbar">
+          <div>
+            <p class="eyebrow">Module 4</p>
+            <h2>Clinical Visits</h2>
+          </div>
+          <div class="toolbar-controls">
+            <div class="search-box">
+              <svg class="icon-stroke" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+              <input type="search" id="visit-search" placeholder="Search patient, doctor, diagnosis...">
+            </div>
+          </div>
+        </div>
+
+        <form id="visit-form" class="form-card">
+          <div class="form-card-header">
+            <div class="form-title-group">
+              <span class="form-ico"><svg class="icon-stroke" viewBox="0 0 24 24"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M9 14h6M12 11v6"/></svg></span>
+              <div><h3>Record clinical visit</h3><span>Only scheduled appointments without an existing visit record appear below.</span></div>
+            </div>
+          </div>
+          <div class="form-fields cols-5">
+            <label class="field"><span>Appointment</span><select name="appointment_id" id="appointment-select" required><option value="">Select appointment</option></select></label>
+            <label class="field"><span>Diagnosis</span><input name="diagnosis" placeholder="Clinical assessment"></label>
+            <label class="field"><span>Summary prescription</span><input name="prescription" placeholder="Primary treatment plan"></label>
+            <label class="field"><span>Clinical notes</span><input name="notes" placeholder="Follow-up instructions"></label>
+            <div class="field-submit"><button type="submit" class="btn-primary">Record visit</button></div>
+          </div>
+        </form>
+
+        <div id="visit-list" class="data-list"></div>
+      </section>
+
+      <!-- PRESCRIPTIONS -->
+      <section id="prescriptions" class="module">
+        <div class="module-toolbar">
+          <div>
+            <p class="eyebrow">Module 5</p>
+            <h2>Prescriptions</h2>
+          </div>
+          <div class="toolbar-controls">
+            <div class="search-box">
+              <svg class="icon-stroke" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+              <input type="search" id="prescription-search" placeholder="Search medicine, patient, doctor...">
+            </div>
+          </div>
+        </div>
+
+        <form id="prescription-form" class="form-card">
+          <div class="form-card-header">
+            <div class="form-title-group">
+              <span class="form-ico"><svg class="icon-stroke" viewBox="0 0 24 24"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/></svg></span>
+              <div><h3>Issue medication prescription</h3><span>Link structured dosage and duration instructions to a recorded visit.</span></div>
+            </div>
+          </div>
+          <div class="form-fields cols-5">
+            <label class="field"><span>Clinical visit</span><select name="visit_id" id="prescription-visit-select" required><option value="">Select visit</option></select></label>
+            <label class="field"><span>Medicine</span><input name="medicine" placeholder="e.g. Paracetamol" required></label>
+            <label class="field"><span>Dosage</span><input name="dosage" placeholder="e.g. 500mg" required></label>
+            <label class="field"><span>Duration</span><input name="duration" placeholder="e.g. 5 days" required></label>
+            <label class="field"><span>Instructions</span><input name="instructions" placeholder="After meals, twice daily"></label>
+            <div class="field-submit"><button type="submit" class="btn-primary">Add prescription</button></div>
+          </div>
+        </form>
+
+        <div id="prescription-list" class="data-list"></div>
+      </section>
+
+      <!-- BILLING -->
+      <section id="bills" class="module">
+        <div class="module-toolbar">
+          <div>
+            <p class="eyebrow">Module 6</p>
+            <h2>Billing &amp; Payments</h2>
+          </div>
+          <div class="toolbar-controls">
+            <div class="filter-pills" id="bill-filters" role="tablist">
+              <button type="button" class="filter-pill active" data-filter="all">All</button>
+              <button type="button" class="filter-pill" data-filter="pending">Pending</button>
+              <button type="button" class="filter-pill" data-filter="paid">Paid</button>
+            </div>
+            <div class="search-box">
+              <svg class="icon-stroke" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+              <input type="search" id="bill-search" placeholder="Search patient, invoice #...">
+            </div>
+          </div>
+        </div>
+
+        <div class="billing-summary" id="billing-summary"></div>
+
+        <form id="bill-form" class="form-card">
+          <div class="form-card-header">
+            <div class="form-title-group">
+              <span class="form-ico"><svg class="icon-stroke" viewBox="0 0 24 24"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8M12 17.5v-11"/></svg></span>
+              <div><h3>Create invoice</h3><span>Generate a bill for a recorded clinical visit, then collect payment via Cash, Card, or bKash.</span></div>
+            </div>
+          </div>
+          <div class="form-fields cols-3">
+            <label class="field"><span>Clinical visit</span><select name="visit_id" id="visit-select" required><option value="">Select visit</option></select></label>
+            <label class="field"><span>Amount (USD)</span><input name="amount" type="number" min="1" step="0.01" placeholder="e.g. 1200" required></label>
+            <div class="field-submit"><button type="submit" class="btn-primary">Create invoice</button></div>
+          </div>
+        </form>
+
+        <div id="bill-list" class="data-list"></div>
+      </section>
+    </div>
+  </main>
+
+  <!-- MODAL SYSTEM -->
+  <div class="modal-backdrop hidden" id="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div>
+          <p class="modal-kicker" id="modal-kicker">Action</p>
+          <h3 id="modal-title">Dialog</h3>
+        </div>
+        <button type="button" class="modal-close" id="modal-close" aria-label="Close modal">
+          <svg class="icon-stroke" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div class="modal-body" id="modal-body"></div>
+    </div>
+  </div>
+
+  <div id="toast" role="status" aria-live="polite"></div>
+  <script src="/static/app.js"></script>
+</body>
+</html>
